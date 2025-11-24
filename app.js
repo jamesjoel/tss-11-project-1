@@ -43,4 +43,6 @@ app.get("/{*splat}", (req, res)=>{
 // FOR LIVE SERVER
 
 let PORT = process.env.PORT || 3000;
-app.listen(PORT, ()=>console.log("Server Running"));
+
+
+app.listen(PORT, ()=>console.log("Server Running", PORT));
