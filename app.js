@@ -1,7 +1,16 @@
 import express from 'express'
 import mongoose from 'mongoose';
 import cors from 'cors'
+import path from 'path'
 const DB_URL = "mongodb+srv://jamessteppingstone:wPlVhhEuxtSm1xHM@cluster0.pp2xrpj.mongodb.net/";
+
+let app = express();
+/*---------------FOR LIVE SERVER----------------------*/
+const root = path.join(path.resolve()+"/dist")
+app.use(express.static(root));
+/*---------------FOR LIVE SERVER----------------------*/
+
+
 
 mongoose
 .connect(DB_URL)
@@ -14,14 +23,24 @@ let City = mongoose.model("city", mongoose.Schema({
     state : String
 }, {collection : "city"}));
 
-let app = express();
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
+
+
 
 app.get("/api/v1/city", async(req, res)=>{
     let result = await City.find();
     res.send(result);
 })
+
+
+// FOR LIVE SERVER
+app.get("/{*splat}", (req, res)=>{
+    res.sendFile("index.html", {root});
+    
+})
+// FOR LIVE SERVER
+
 
 app.listen(3000, ()=>console.log("Server Running"));
