@@ -5,7 +5,7 @@ const Home = () => {
      let [allCity, setAllCity] = useState([]);
   useEffect(()=>{
     axios
-    .get("http://localhost:3000/api/v1/city")
+    .get("https://tss-11-project-1.onrender.com/api/v1/city")
     .then(response=>{
       setAllCity(response.data);
     })
